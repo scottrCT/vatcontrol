@@ -10,6 +10,14 @@ require 'csv'
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'aircraft.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 csv.each do |row|
-  Aircraft.create(code: row['acType'], acClass: row['acClass'], acType: row['EngNumb-FAAWeightClass'], icaoWTC: row['ICAO WTC'], recatWakeCat: row['RECAT 1.5 Wake Category'],
-                  srs: row['SRS'], lahso: row['LAHSO'], engines: row['NumbEngines'], engType: row['EngType'], weightClass: row['WTClass'])
+  Aircraft.create(code: row['acType'],
+                  acClass: row['acClass'],
+                  acType: row['EngNumb-FAAWeightClass'],
+                  icaoWTC: row['ICAO WTC'],
+                  recatWakeCat: row['RECAT 1.5 Wake Category'],
+                  srs: row['SRS'],
+                  lahso: row['LAHSO'],
+                  engines: row['NumbEngines'],
+                  engType: row['EngType'],
+                  weightClass: row['WTClass'])
 end
