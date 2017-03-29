@@ -1,6 +1,6 @@
 class Aircraft < ActiveRecord::Base
   ENGINETYPE = {'P'=>'Piston', 'T'=>'Turboprop', 'J'=>'Jet'}
-  WEIGHTCLASS = {'S'=>'Small', 'S+'=>'Small Plus', 'L'=>'Large', 'H'=>'Heavy', 'J'=>'Jumbo'}
+  WEIGHTCLASS = {'S'=>'Small', 'S+'=>'Small Plus', 'L'=>'Large', 'H'=>'Heavy', 'J'=>'Super'}
 
   def eType
     ENGINETYPE.has_key?(self.engType) ? ENGINETYPE[self.engType] : 'Unknown'

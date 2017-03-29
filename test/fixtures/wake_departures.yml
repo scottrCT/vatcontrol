@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  lead: MyString
+  trail: MyString
+  location: MyString
+  separation: MyString
+  waivable: false
+
+two:
+  lead: MyString
+  trail: MyString
+  location: MyString
+  separation: MyString
+  waivable: false

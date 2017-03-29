@@ -7,6 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'csv'
 
+Aircraft.delete_all
+Srs.delete_all
+WakeDeparture.delete_all
+WakeEnroute.delete_all
+
 csv_text = File.read(Rails.root.join('lib', 'seeds', 'aircraft.csv'))
 csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
 csv.each do |row|
@@ -20,4 +25,31 @@ csv.each do |row|
                   engines: row['NumbEngines'],
                   engType: row['EngType'],
                   weightClass: row['WTClass'])
+end
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'srs.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  Srs.create(lead: row['First'],
+             trail: row['Second'],
+             separation: row['Separation'])
+end
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'WakeDeparture.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+
+  WakeDeparture.create(lead: row['Lead'],
+                       trail: row['Trail'],
+                       location: row['Location'],
+                       separation: row['Separation'],
+                       waivable: row['Waivable'])
+end
+
+csv_text = File.read(Rails.root.join('lib', 'seeds', 'WakeEnroute.csv'))
+csv = CSV.parse(csv_text, :headers => true, :encoding => 'ISO-8859-1')
+csv.each do |row|
+  WakeEnroute.create(lead: row['Lead'],
+                     trail: row['Trail'],
+                     separation: row['WakeSeparation'])
 end

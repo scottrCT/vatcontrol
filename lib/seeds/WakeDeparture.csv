@@ -1,0 +1,15 @@
+Lead,Trail,Location,Separation,Waivable
+J,A,Trail passing through airborne path of lead,3 minutes,N
+J,A,Same runway,3 minutes,N
+J,A,Intersection Departure,4 minutes,N
+H,S,Same runway,2 minutes or 5 miles,N
+H,L,Same runway,2 minutes or 5 miles,N
+H,H,Same runway,2 minutes or 4 miles,N
+H,A,Trail passing through airborne path of lead,2 minutes,N
+B,A,Trail passing through airborne path of lead,2 minutes,N
+H,A,Intersection Departure,3 minutes,N
+B,A,Intersection Departure,3 minutes,N
+B,S,Same runway or a parallel runway separated by less than 700,2 minutes or 5 miles,N
+S+,S,Same runway or opposite direction operation,3 minutes,Y
+L,S,Intersection Departure,3 minutes,Y
+S+,S,Intersection Departure,3 minutes,Y

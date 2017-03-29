@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
   post "/fetch" => 'aircrafts#from_code', as: 'fetch'
+  get '/autocomplete/acs' => "autocomplete#acs"
   root 'aircrafts#index'
 
   # Example of regular route:
