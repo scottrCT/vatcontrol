@@ -4,6 +4,8 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # root 'welcome#index'
+  post "/fetch" => 'aircrafts#from_code', as: 'fetch'
+  root 'aircrafts#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

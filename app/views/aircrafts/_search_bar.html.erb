@@ -1,0 +1,5 @@
+<%= form_for(@aircraft, url: fetch_path, :remote => true) do |f| %>
+  <%= f.text_field :code %>
+  <%= f.submit 'Search' %>
+<% end %>
+<%#= link_to aircraft.code, fetch_path(:ac_code => aircraft.code), :remote => true %>
