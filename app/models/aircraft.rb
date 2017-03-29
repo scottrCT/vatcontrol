@@ -9,4 +9,19 @@ class Aircraft < ActiveRecord::Base
   def wClass
     WEIGHTCLASS.has_key?(self.weightClass) ? WEIGHTCLASS[self.weightClass] : 'Unknown'
   end
+
+  def srsdep
+     Srs.where('lead = ? or trail = ?', srs, srs).all
+  end
+
+  def wakedep
+    wtCat = (code.include? 'B75') ? 'B' : weightClass
+    WakeDeparture.where('lead = ? or trail = ?', wtCat, wtCat).all
+  end
+
+  def wakeenr
+    wtCat = (code.include? 'B75') ? 'B' : weightClass
+    WakeEnroute.where('lead = ? or trail = ?', wtCat, wtCat).all
+  end
+
 end
