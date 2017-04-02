@@ -6,3 +6,6 @@ $(document).ready ->
     source: "/autocomplete/acs"
     minLength: 2
     select: (event,ui) -> $("#aircraft_code").val(ui.item.id)
+
+  $("#srsLk").click ->
+    $("#srs").toggle()

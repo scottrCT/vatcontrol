@@ -1,5 +1,21 @@
 <%= form_for(@aircraft, url: fetch_path, :remote => true) do |f| %>
-  <%= f.text_field :code %>
-  <%= f.submit 'Search' %>
+  <div class="row">
+    <div class="small-6 columns"
+      <div class="row collapsed">
+        <div class="small-3 columns">
+          <%= f.label :code, 'A/C Code' %>
+          <%= f.text_field :code %>
+        </div>
+        <div class="small-2 columns">
+          <br />
+          <%= f.submit 'Search', :class=>"button round" %>
+        </div>
+        <div class="small-7 columns" />
+      </div>
+    </div>
+    <div class="small-6 columns">
+      &nbsp;
+    </div>
+  </div>
 <% end %>
-<%#= link_to aircraft.code, fetch_path(:ac_code => aircraft.code), :remote => true %>
+

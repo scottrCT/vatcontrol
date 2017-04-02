@@ -1,15 +1,201 @@
 <div class="item_box">
   <% if ac.present? %>
-    <%= ac.code %>
-    <%= ac.acClass %>
-    <%= ac.acType %>
-    <%= ac.engines %>
-    <%= ac.engType %>
-    <%= ac.eType %>
-    <%= ac.weightClass %>
-    <%= ac.wClass %>
-    <%= ac.icaoWTC %>
-    <%= ac.srs %>
-    <%= ac.lahso %>
+      <table>
+        <thead>
+        <tr>
+          <th>Code</th>
+          <th>Class</th>
+          <th>Type</th>
+          <th>Engines</th>
+          <th>Weight Class</th>
+          <th>SRS</th>
+          <th>LAHSO</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+          <%= ac.code %>
+          </td>
+          <td>
+          <%= ac.acClass %>
+          </td>
+          <td>
+          <%= ac.acType %>
+          </td>
+          <td>
+            <%= "#{ac.engines} #{ac.eType}" %>
+          </td>
+          <td>
+            <%= ac.wClass %>
+          </td>
+          <td>
+            <%= 'Cat '+ac.srs %>
+          </td>
+          <td>
+            <%= ac.lahso %>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <ul class="inline-list">
+        <li><div id="depLk" style="display:inline;" onClick="getElementById('enr').style = 'display:none;'; getElementById('dep').style = 'display:block;'">Departure Wake/SRS</div></li>
+        <li><div id="enrLk" style="display:inline;" onClick="getElementById('enr').style = 'display:block;'; getElementById('dep').style = 'display:none;'">Enroute Wake</div></li>
+      </ul>
+      <div id="enr" style="display:none">
+        <h1>Enroute</h1>
+      <table>
+        <thead>
+        <tr>
+          <th><%= "#{ac.code} is trail" %></th>
+        </tr>
+        <tr>
+          <th>Lead Type</th><th>Separation (nm)</th>
+        </tr>
+        </thead>
+        <tbody>
+    <% ac.wakeenr.select {|x| x.trail == ac.weightClass || x.trail == 'A'}.each do |w| %>
+       <tr>
+         <td>
+           <%= Aircraft.wakeType(w.lead) %>
+         </td>
+         <td>
+           <%= w.separation %>
+         </td>
+       </tr>
+    <% end %>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+        <tr>
+          <th><%= "#{ac.code} is lead" %></th>
+        </tr>
+        <tr>
+          <th>Trail Type</th><th>Separation (nm)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% ac.wakeenr.select {|x| x.lead == ac.weightClass || x.lead == 'A'}.each do |w| %>
+            <tr>
+              <td>
+                <%= Aircraft.wakeType(w.trail) %>
+              </td>
+              <td>
+                <%= w.separation %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
+      <div id="dep" style="display:none">
+        <h1>Departure Wake</h1>
+      <% if ac.wakedep.select {|x| x.trail == ac.weightClass || x.trail == 'A'}.present? %>
+        <table>
+          <thead>
+          <tr>
+            <th><%= "#{ac.code} is trail" %></th>
+          </tr>
+          <tr>
+            <th>Lead Type</th><th>Location</th><th>Separation</th><th>Waivable?</th>
+          </tr>
+          </thead>
+          <tbody>
+          <%  ac.wakedep.select {|x| x.trail == ac.weightClass || x.trail == 'A'}.each do |w| %>
+              <tr>
+                <td>
+                  <%= Aircraft.wakeType(w.lead) %>
+                </td>
+                <td>
+                  <%= w.location %>
+                </td>
+                <td>
+                  <%= w.separation %>
+                </td>
+                <td>
+                  <%= w.waivable ? 'Y' : 'N' %>
+                </td>
+              </tr>
+          <% end %>
+          </tbody>
+        </table>
+          <% else %>
+      No restrictions as trail. <br />
+      <% end %>
+      <table>
+        <thead>
+        <tr>
+          <th><%= "#{ac.code} is lead" %></th>
+        </tr>
+        <tr>
+          <th>Trail Type</th><th>Location</th><th>Separation</th><th>Waivable?</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% ac.wakedep.select {|x| x.lead == ac.weightClass || x.lead == 'A'}.each do |w| %>
+            <tr>
+              <td>
+                <%= Aircraft.wakeType(w.trail) %>
+              </td>
+              <td>
+                <%= w.location %>
+              </td>
+              <td>
+                <%= w.separation %>
+              </td>
+              <td>
+                <%= w.waivable ? 'Yes' : 'No' %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <h1>SRS</h1>
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2"><%= "#{ac.code} is trail" %></th>
+        </tr>
+        <tr>
+          <th>Lead Type</th><th>Separation (ft)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% ac.srsdep.select {|x| x.trail == ac.srs}.each do |w| %>
+            <tr>
+              <td>
+                <%= Aircraft.srsType(w.lead) %>
+              </td>
+              <td>
+                <%= w.separation %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <table>
+        <thead>
+        <tr>
+          <th colspan="2"><%= "#{ac.code} is lead" %></th>
+        </tr>
+        <tr>
+          <th>Trail Type</th><th>Separation (ft)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% ac.srsdep.select {|x| x.lead == ac.srs}.each do |w| %>
+            <tr>
+              <td>
+                <%= Aircraft.srsType(w.trail) %>
+              </td>
+              <td>
+                <%= w.separation %>
+              </td>
+            </tr>
+        <% end %>
+        </tbody>
+      </table>
+      </div>
   <% end %>
 </div>
